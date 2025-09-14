@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 from docx import Document
 from io import BytesIO
+from fpdf import FPDF
 
 # --- Page Config ---
 st.set_page_config(page_title="Class Attendance", layout="centered")
@@ -119,6 +120,43 @@ def show_table(title, data_list, color):
 df_present = show_table("✅ Present Students", st.session_state.present_list, "green")
 df_absent = show_table("❌ Absent Students", st.session_state.absent_list, "red")
 
+
+def create_pdf_file(present_df, absent_df):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.set_font("Arial", "B", 16)
+
+    # Title
+    pdf.cell(200, 10, txt="Class Attendance Report", ln=True, align="C")
+    pdf.set_font("Arial", "", 12)
+    pdf.cell(200, 10, txt=f"Date: {datetime.now().strftime('%Y-%m-%d')}", ln=True, align="L")
+    pdf.ln(10)
+
+    # Present Students
+    if not present_df.empty:
+        pdf.set_font("Arial", "B", 14)
+        pdf.cell(200, 10, txt="✅ Present Students", ln=True, align="L")
+        pdf.set_font("Arial", "", 12)
+        for idx, row in present_df.iterrows():
+            pdf.cell(200, 10, txt=f"{row['Roll Number']} - {row['Name']}", ln=True, align="L")
+        pdf.ln(5)
+
+    # Absent Students
+    if not absent_df.empty:
+        pdf.set_font("Arial", "B", 14)
+        pdf.cell(200, 10, txt="❌ Absent Students", ln=True, align="L")
+        pdf.set_font("Arial", "", 12)
+        for idx, row in absent_df.iterrows():
+            pdf.cell(200, 10, txt=f"{row['Roll Number']} - {row['Name']}", ln=True, align="L")
+
+    buffer = BytesIO()
+    pdf.output(buffer)
+    buffer.seek(0)
+    return buffer
+
+
+
 # --- Create Word file ---
 def create_word_file(present_df, absent_df):
     doc = Document()
@@ -154,6 +192,14 @@ def create_word_file(present_df, absent_df):
     buffer.seek(0)
     return buffer
 
+
+
+
+
+
+
+
+
 # --- Download Word Button ---
 if submitted:
     word_file = create_word_file(df_present if df_present is not None else pd.DataFrame(),
@@ -164,4 +210,15 @@ if submitted:
         data=word_file,
         file_name="attendance_report.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+
+    # PDF download
+    pdf_file = create_pdf_file(df_present if df_present is not None else pd.DataFrame(),
+                               df_absent if df_absent is not None else pd.DataFrame())
+
+    st.download_button(
+        label="📥 Download Attendance as PDF File (.pdf)",
+        data=pdf_file,
+        file_name="attendance_report.pdf",
+        mime="application/pdf"
     )
