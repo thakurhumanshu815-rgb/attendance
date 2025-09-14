@@ -181,10 +181,10 @@ def create_pdf_file(present_df, absent_df):
         for _, row in absent_df.iterrows():
             pdf.cell(200, 10, txt=f"{row['Roll Number']} - {row['Name']}", ln=True)
 
-    buffer = BytesIO()
-    pdf.output(buffer)
-    buffer.seek(0)
-    return buffer
+    # ✅ Fix: Use string output + BytesIO
+    pdf_output = pdf.output(dest='S').encode('latin1')
+    return BytesIO(pdf_output)
+
 
 # --- Download Buttons ---
 if submitted:
