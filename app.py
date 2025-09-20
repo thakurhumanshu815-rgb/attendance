@@ -60,7 +60,18 @@ student_list = [
     { "Name": "TOGAR STEAV KEPHA", "Roll Number": "248" },
     { "Name": "YADAV ADITYA ARVIND", "Roll Number": "249" },
     { "Name": "SINGH PRIYANSHU DEVENDRA", "Roll Number": "250" },
-    { "Name": "TEMBHARE ASHWIN PREMLAL", "Roll Number": "251" }
+    { "Name": "TEMBHARE ASHWIN PREMLAL", "Roll Number": "251" },
+    { "Name": "THAKUR HUMANSHU PRADEEP", "Roll Number": "000" },
+     { "Name": "Pallavi shende", "Roll Number": "000" },
+    { "Name": "Joshita dohare", "Roll Number": "000" },
+    { "Name": "Gauri madankar", "Roll Number": "000" },
+    { "Name": "Sharon Vaidya", "Roll Number": "000" },
+    { "Name": "Harsh kanerwar", "Roll Number": "000" },
+    { "Name": "Avadhut chavan", "Roll Number": "000" },
+     { "Name": "Harsh rahate", "Roll Number": "000" },
+     { "Name": "Om Jadhao", "Roll Number": "000" },
+     { "Name": "Aniket jadhao", "Roll Number": "000" }
+ 
 ]
 
 # --- Session State ---
