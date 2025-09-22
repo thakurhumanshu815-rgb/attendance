@@ -70,7 +70,9 @@ student_list = [
     { "Name": "Avadhut chavan", "Roll Number": "006" },
      { "Name": "Harsh rahate", "Roll Number": "007" },
      { "Name": "Om Jadhao", "Roll Number": "008" },
-     { "Name": "Aniket jadhao", "Roll Number": "009" }
+     { "Name": "Aniket jadhao", "Roll Number": "009" },
+    { "Name": "Srushti Kakde", "Roll Number": "010" },
+    { "Name": "vansh rahate", "Roll Number": "011" }
  
 ]
 
